@@ -45,17 +45,14 @@
                 response.addCookie(usernameCookie);
                 response.addCookie(passwordCookie);
             }
-            
-            response.sendRedirect("loginsuccess.jsp");
+
+            response.sendRedirect("contacts.jsp");
         } else {
-            out.print("<script language='javaScript'> alert('密码错误');</script>");
             response.setHeader("refresh", "0;url=login.jsp");
         }
     } else {
-        out.print("<script language='javaScript'> alert('请输入用户名——else');</script>");
         response.setHeader("refresh", "0;url=login.jsp");
     }
-
 %>
 </body>
 </html>

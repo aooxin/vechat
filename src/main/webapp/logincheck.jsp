@@ -46,14 +46,13 @@
                 response.addCookie(passwordCookie);
             }
 
-            response.sendRedirect("loginsuccess.jsp");
+            response.sendRedirect("contacts.jsp");
         } else {
             response.setHeader("refresh", "0;url=login.jsp");
         }
     } else {
         response.setHeader("refresh", "0;url=login.jsp");
     }
-
 %>
 </body>
 </html>
