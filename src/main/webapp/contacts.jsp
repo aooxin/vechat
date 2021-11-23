@@ -5,7 +5,6 @@
   Time: 下午7:05
   To change this template use File | Settings | File Templates.
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -58,9 +57,11 @@
         %>
         var pubsub = goeasy.pubsub;
         pubsub.subscribe({
-            channel: <%=username%>,//替换为您自己的channel
+            channel: "456",//替换为您自己的channel
             onMessage: function (message) {
                 console.log("Channel:" + message.channel + " content:" + message.content);
+                let chatMessage = JSON.parse(message.content);
+                showMess(chatMessage);
             },
             onSuccess: function () {
                 console.log("Channel订阅成功。");
@@ -72,10 +73,11 @@
 
         //发送消息
         function sendMessage() {
-            var messageContent = document.getElementById("MessContent").value;
+            let messageContent = document.getElementById("MessContent").value;
+            let x =<%=username%>;
             let message = {
                 content: messageContent,
-                senderUserId: <%=username%>
+                senderUserId: "<%=username%>"
             };
             pubsub.publish({
                 channel: "456",//替换为您自己的channel
@@ -91,8 +93,18 @@
         }
 
         // 展示收到的消息
-        function showMess() {
+        function showMess(msg) {
+            var message = JSON.parse(JSON.stringify(msg));
+            var mess = message.senderUserId + ": " + message.content;
+            document.getElementById("MessShowContent").append(mess);
+            document.getElementById("MessShowContent").append("\n");
+        }
 
+        function clearMsg() {
+            $("#MessShowContent").val("");
+        }
+
+        function reLogin() {
 
         }
     </script>
@@ -126,6 +138,7 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
+                <button type="button" class="btn btn-link" disabled>重新登录</button>
             </div>
         </div>
     </nav>
@@ -133,14 +146,15 @@
 
 <div class="container">
     <%--消息展示框--%>
-    <div><h3>以下消息是<%=username%>发给123的</h3></div>
+    <div><h3>以下消息是<%=username%>发给群聊1的</h3></div>
     <%--消息展示框--%>
-    <textarea id="MessShowContent" class="form-control" rows="6"></textarea>
+    <textarea id="MessShowContent" class="form-control" rows="6" readonly></textarea>
     <div>
         <%--输入框--%>
         <textarea id="MessContent" class="form-control" rows="2"></textarea>
         <%--提交按钮--%>
         <button id="sendMsg" class="btn btn-primary" onclick="sendMessage()">发送</button>
+        <button id="clearMsg" class="btn btn-primary" onclick="clearMsg()" disabled>清空</button>
     </div>
 
 </div>

@@ -20,16 +20,16 @@
 <jsp:useBean id="md5" class="com.example.webdemo.MD5" scope="page"/>
 <%
     request.setCharacterEncoding("UTF-8");
-    String id=(String)request.getParameter("userid");
-    String username=(String)request.getParameter("username");
-    String password=(String)request.getParameter("password");//取出R.jsp的值
-    String pass_md5=md5.getMD5(password,password.length());
+    String id = (String) request.getParameter("userid");
+    String username = (String) request.getParameter("username");
+    String password = (String) request.getParameter("password");//取出R.jsp的值
+    String pass_md5 = md5.getMD5(password, password.length());
 
     //下面是数据库操作 *代表所有值
-    String sql="select * from wechat_user where ID="+"'"+id+"'";//定义一个查询语句
-    String sql_insert="insert into wechat_user (ID,USER_NAME,FRIENDS_NUM,pass) values (" + "'" +id+ "'" + "," +"'"+username+"'"+","+"'"+0+"'"+","+"'"+pass_md5+"'"+")";
+    String sql = "select * from wechat_user where ID=" + "'" + id + "'";//定义一个查询语句
+    String sql_insert = "insert into wechat_user (ID,USER_NAME,FRIENDS_NUM,pass) values (" + "'" + id + "'" + "," + "'" + username + "'" + "," + "'" + 0 + "'" + "," + "'" + pass_md5 + "'" + ")";
     db.execQuery(sql_insert);//运行上面的语句
-    response.sendRedirect("loginsuccess.jsp");
+    response.sendRedirect("index.jsp");
 %>
 </body>
 </html>

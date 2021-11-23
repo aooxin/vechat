@@ -40,12 +40,11 @@
             if (remember != null && remember.length > 0) {
                 Cookie usernameCookie = new Cookie("username", username);
                 Cookie passwordCookie = new Cookie("password", passCookie);
-                usernameCookie.setMaxAge(86400);
-                passwordCookie.setMaxAge(86400);
+//                usernameCookie.setMaxAge(0);
+//                passwordCookie.setMaxAge(0);
                 response.addCookie(usernameCookie);
                 response.addCookie(passwordCookie);
             }
-
             response.sendRedirect("contacts.jsp");
         } else {
             response.setHeader("refresh", "0;url=login.jsp");

@@ -11,7 +11,7 @@
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="js/bootstrap.min.js"></script>
     <style type="text/css">
-        body{
+        body {
             background: url("https://pic.imgdb.cn/item/5e3142932fb38b8c3ce2729d.png") no-repeat fixed;
             /* set background tensile */
             background-size: 100% 100%;
@@ -19,7 +19,8 @@
             margin: 0;
             padding: 0;
         }
-        #content{
+
+        #content {
             background-color: rgba(255, 255, 255, 0.95);
             width: 420px;
             height: 300px;
@@ -162,7 +163,7 @@
             </div>
             <div class="remember-box">
                 <label>
-                    <input type="checkbox" name="remember">&nbsp;Remember Me
+                    <input type="checkbox" name="remember" checked>&nbsp;Remember Me
                 </label>
             </div>
             <div class="login-button-box">

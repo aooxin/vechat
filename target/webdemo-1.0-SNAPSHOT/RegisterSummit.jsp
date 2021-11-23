@@ -29,7 +29,7 @@
     String sql="select * from wechat_user where ID="+"'"+id+"'";//定义一个查询语句
     String sql_insert="insert into wechat_user (ID,USER_NAME,FRIENDS_NUM,pass) values (" + "'" +id+ "'" + "," +"'"+username+"'"+","+"'"+0+"'"+","+"'"+pass_md5+"'"+")";
     db.execQuery(sql_insert);//运行上面的语句
-    response.sendRedirect("loginsuccess.jsp");
+    response.sendRedirect("index.jsp");
 %>
 </body>
 </html>
