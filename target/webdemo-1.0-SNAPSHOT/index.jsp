@@ -167,7 +167,7 @@
                 </label>
             </div>
             <div class="login-button-box">
-                    <input type="submit" value="登录" class="login-button-box">
+                <input type="submit" value="登录" class="login-button-box">
             </div>
             <div class="logon-box">
                 <a href="forget.jsp">Forgot?</a>
