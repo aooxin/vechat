@@ -14,10 +14,18 @@
     <script src="js/jquery-3.6.0.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="js/bootstrap.min.js"></script>
+    <style>
+        .footer {
+
+            position: fixed;
+
+            bottom: 0;
+        }
+    </style>
 </head>
 <body>
 <%--菜单栏--%>
-<div class="container-fluid">
+<div class="container-fluid shadow-sm">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
@@ -45,19 +53,22 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <button type="button" class="btn btn-link" disabled>重新登录</button>
+
             </div>
         </div>
     </nav>
 </div>
+<div style="height: 10px">
+
+</div>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-1">
-            ddd
+        <div class="col-1 shadow-sm">
+            还没想好这里放什么~_~
         </div>
-        <div class="col-2">
+        <div class="col-2 shadow-sm">
             <div>
-                <h5 class="card-header">所有群聊</h5>
+                <h5 class="card-header text-secondary">所有群聊</h5>
             </div>
             <div>
                 <div class="list-group" id="myList" role="tablist">
@@ -74,6 +85,25 @@
                     <div class="tab-pane" id="messages" role="tabpanel">..3.</div>
                     <div class="tab-pane" id="settings" role="tabpanel">..4.</div>
                 </div>
+                <div class="footer">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
                 <script>
                     // 对上述切换的响应
                     var firstTabEl = document.querySelector('#myTab a:last-child')
@@ -82,7 +112,7 @@
                 </script>
             </div>
         </div>
-        <div class="col-8">
+        <div class="col-8 shadow-sm">
             <%--消息展示框--%>
             <div><h3>以下消息是发给群聊1的</h3></div>
             <%--消息展示框--%>
@@ -102,8 +132,18 @@
                 <button id="clearMsg" class="btn btn-primary" onclick="clearMsg()" disabled>清空</button>
             </div>
         </div>
-        <div class="col-1">
-            ads
+
+
+        <div class="col-1 shadow-sm">
+            <div>
+                <h5 class="card-header text-secondary">成员</h5>
+            </div>
+            <div class="list-group" id="myList2" role="tablist">
+                <a class="list-group-item list-group-item-action active" data-bs-toggle="list" href="#home" role="tab">小明</a>
+                <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#profile" role="tab">小李</a>
+                <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#messages" role="tab">小王</a>
+                <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#settings" role="tab">小华</a>
+            </div>
         </div>
     </div>
 </div>
