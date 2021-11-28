@@ -13,20 +13,19 @@ public class DbBean {
     private String dbPassword = "max101312";
     private Connection conn = null;
     private Statement stmt = null;
-    PreparedStatement psmt=null;
-    ResultSet rs=null;
-    List<user> list =new ArrayList<user>();
-    public DbBean(){
-        try
-        {
+    PreparedStatement psmt = null;
+    ResultSet rs = null;
+    List<user> list = new ArrayList<user>();
+
+    public DbBean() {
+        try {
             Class.forName(driverStr);
-            conn = DriverManager.getConnection(connStr,dbUsername, dbPassword);
+            conn = DriverManager.getConnection(connStr, dbUsername, dbPassword);
             stmt = conn.createStatement();
-            if(conn!=null){
+            if (conn != null) {
                 System.out.println("数据库连接成功");
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("--------------");
             System.out.println(ex.getMessage());
             System.out.println("数据连接失败2！");
@@ -35,7 +34,7 @@ public class DbBean {
 
     public int executeUpdate(String s) {
         int result = 0;
-        System.out.println("--更新语句:"+s+"\n");
+        System.out.println("--更新语句:" + s + "\n");
         try {
             result = stmt.executeUpdate(s);
         } catch (Exception ex) {
@@ -46,7 +45,7 @@ public class DbBean {
 
     public ResultSet executeQuery(String s) {
         ResultSet rs = null;
-        System.out.print("--查询语句:"+s+"\n");
+        System.out.print("--查询语句:" + s + "\n");
         try {
             rs = stmt.executeQuery(s);
         } catch (Exception ex) {
@@ -54,7 +53,17 @@ public class DbBean {
         }
         return rs;
     }
-    public void execQuery(String s){
+
+    public void ResetPassword(String id, String pass) {
+        try {
+            conn.prepareCall("{call SetNewPassword(id,pass )}");
+            System.out.println("执行设置新密码存储过程成功！");
+        } catch (SQLException e) {
+            System.out.println("执行设置新密码存储过程错误！");
+        }
+    }
+
+    public void execQuery(String s) {
         try {
             stmt.executeUpdate(s);
         } catch (SQLException e) {
@@ -69,4 +78,6 @@ public class DbBean {
         } catch (Exception e) {
         }
     }
+
+
 }

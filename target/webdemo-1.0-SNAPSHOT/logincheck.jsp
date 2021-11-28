@@ -47,10 +47,10 @@
             }
             response.sendRedirect("contacts.jsp");
         } else {
-            response.setHeader("refresh", "0;url=login.jsp");
+            response.sendRedirect("login.jsp");
         }
     } else {
-        response.setHeader("refresh", "0;url=login.jsp");
+        response.sendRedirect("login.jsp");
     }
 %>
 </body>
