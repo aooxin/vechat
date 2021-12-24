@@ -7,6 +7,8 @@
   这个页面将作为最终的聊天页面//QAQ忽略命名
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.util.Date" %>
 <html>
 <head>
     <title>Title</title>
@@ -30,6 +32,8 @@
             appkey: "BC-8b85b22cbb814784ba4e44521a9b5d12",
             modules: ['pubsub']//根据需要，传入‘pubsub’或'im’，或数组方式同时传入
         });
+        //用javascript连接数据库
+
         //建立连接
         goeasy.connect({
             id: "001", //pubsub选填，im必填
@@ -65,7 +69,7 @@
             channel: "456",//替换为您自己的channel
             onMessage: function (message) {
                 console.log("Channel:" + message.channel + " content:" + message.content);
-                let chatMessage = JSON.parse(message.content);
+                let chatMessage = JSON.parse(message.content); //解析拿到的json
                 showMess(chatMessage);
             },
             onSuccess: function () {
@@ -78,14 +82,18 @@
 
         //发送消息
         function sendMessage() {
+            let group = '456';
             let messageContent = document.getElementById("MessContent").value;
             let x =<%=username%>;
+            //发送的包
+            let sendToGroup = group
             let message = {
                 content: messageContent,
-                senderUserId: "<%=username%>"
+                senderUserId: "<%=username%>", //发送人
+                sendToGroup: group //发送到的群组
             };
             pubsub.publish({
-                channel: "456",//替换为您自己的channel
+                channel: group,//要发送到的群聊
                 message: JSON.stringify(message),//替换为您想要发送的消息内容
                 onSuccess: function () {
                     console.log("消息发布成功。");
@@ -97,12 +105,34 @@
             $("#MessContent").val("");
         }
 
+        function doSQL() {
+
+        }
+
         // 展示收到的消息
         function showMess(msg) {
-            var message = JSON.parse(JSON.stringify(msg));
-            var mess = message.senderUserId + ": " + message.content;
+            let message = JSON.parse(JSON.stringify(msg));
+            let mess = message.senderUserId + ": " + message.content;
             document.getElementById("MessShowContent").append(mess);
             document.getElementById("MessShowContent").append("\n");
+            // 将消息存入数据库部分,这部分太离谱了。。。。留着不删了，以后看到可以想起这个愚蠢的bug
+            <%--引入数据库bean--%>
+            <%--            <%--%>
+            <%--            //获取 QAQ觉得这个写法好愚蠢，但是没有想到什么其他写法2021.12.23 23：15--%>
+            <%--            String senderUserId=new String();--%>
+            <%--            String sendToGroup=new String();--%>
+            <%--            %>--%>
+            <%--            <%=senderUserId%> = message.senderUserId--%>
+            <%--                <%=sendToGroup%> = message.sendToGroup--%>
+            <%--            <jsp:useBean id="db" class="com.example.webdemo.DbBean" scope="page"/>--%>
+            <%--            <%--%>
+            <%--            Date date = new Date();--%>
+            <%--            Timestamp time = new Timestamp(date.getTime());--%>
+            <%--            String sql = "insert into group_message (ID,G_ID,message_content,mess_time) values (" + senderUserId + "," + sendToGroup + "," + '"' + "helloWorld" + '"' + "," + '"' + time + '"' + ")";--%>
+            <%--            String sql_add = "update wechat_group set mess_num=mess_num+1 where group_id="+sendToGroup;--%>
+            <%--            db.execQuery(sql);//运行上面的语句--%>
+            <%--            db.execQuery(sql_add);--%>
+            <%--            %>--%>
         }
 
         function clearMsg() {
@@ -113,8 +143,24 @@
 
         }
 
-        function chooseGroup1() {
+        let group_selected;
 
+        //用于选择群聊的函数
+        function chooseGroup(x) {
+            switch (x) {
+                case 1:
+                    group_selected = "群聊1"
+                    document.getElementById("group_selected_h3").innerHTML("以下消息是<%=username%>发给的")
+                    break;
+                case 2:
+                    document.getElementById("group_selected_h3").innerText("以下消息是sss<%=username%>发给的")
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                default :
+            }
         }
     </script>
 </head>
@@ -169,18 +215,15 @@
 
             <div>
                 <div class="list-group" id="myList" role="tablist">
-                    <a class="list-group-item list-group-item-action active" data-bs-toggle="list" href="#home"
+                    <a class="list-group-item list-group-item-action active" data-bs-toggle="list"
+                       onclick="chooseGroup(1)"
                        role="tab">群聊1</a>
-                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#profile" role="tab">群聊2</a>
-                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#messages" role="tab">群聊3</a>
-                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#settings" role="tab">群聊4</a>
-                </div>
-
-                <div class="tab-content">
-                    <div class="tab-pane active" id="home" role="tabpanel">..1.</div>
-                    <div class="tab-pane" id="profile" role="tabpanel">..2.</div>
-                    <div class="tab-pane" id="messages" role="tabpanel">..3.</div>
-                    <div class="tab-pane" id="settings" role="tabpanel">..4.</div>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" role="tab"
+                       onclick="chooseGroup(2)">群聊2</a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" role="tab"
+                       onclick="chooseGroup(3)">群聊3</a>
+                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" role="tab"
+                       onclick="chooseGroup(4)">群聊4</a>
                 </div>
                 <div class="footer">
                     <nav aria-label="Page navigation example">
@@ -212,7 +255,7 @@
         <%--最重要的部分--%>
         <div class="col-8 shadow-sm">
             <%--消息展示框--%>
-            <div><h3>以下消息是<%=username%>发给群聊1的</h3></div>
+            <div><h3 id="group_selected_h3">以下消息是<%=username%>发给的</h3></div>
             <%--消息展示框--%>
             <textarea id="MessShowContent" class="form-control" readonly
                       style="height: 450px;background-color: white"></textarea>
