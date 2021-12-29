@@ -50,19 +50,7 @@
         });
 
         <%
-        Cookie[] oldCookies=request.getCookies();
-        String username="";
-        String password="";
-        if (oldCookies != null && oldCookies.length > 0) {
-        for (Cookie c : oldCookies) {
-            if (c.getName().equalsIgnoreCase("username")) {
-                username = c.getValue();
-            }
-            if (c.getName().equalsIgnoreCase("password")) {
-                password = c.getValue();
-            }
-        }
-    }
+        String username=(String) session.getAttribute("normalUsername");
         %>
         const pubsub = goeasy.pubsub;
         pubsub.subscribe({
@@ -112,6 +100,8 @@
         // 展示收到的消息
         function showMess(msg) {
             let message = JSON.parse(JSON.stringify(msg));
+            <%--let BeforeMsg=<%=session.getAttribute("showContent")%>;--%>
+            // document.getElementById("MessShowContent").append(BeforeMsg);
             let mess = message.senderUserId + ": " + message.content;
             document.getElementById("MessShowContent").append(mess);
             document.getElementById("MessShowContent").append("\n");
@@ -133,6 +123,9 @@
             <%--            db.execQuery(sql);//运行上面的语句--%>
             <%--            db.execQuery(sql_add);--%>
             <%--            %>--%>
+            //把信息传给后端页面
+            <%--let date = <%=username%>;--%>
+            <%--$.ajax({url: "actionDic/Group_Contacts_Action.jsp", type: "post", data: ""});--%>
         }
 
         function clearMsg() {
@@ -257,21 +250,26 @@
             <%--消息展示框--%>
             <div><h3 id="group_selected_h3">以下消息是<%=username%>发给的</h3></div>
             <%--消息展示框--%>
+            <form action="actionDic/Group_Contacts_Action.jsp" id="MessInputFrom" name="MessInputFromName"
+                  method="post">
             <textarea id="MessShowContent" class="form-control" readonly
                       style="height: 450px;background-color: white"></textarea>
-            <div>
-                <%--输入框--%>
-                <div class="progress" style="height: 1px;">
-                    <div class="progress-bar progress-bar-animated" role="progressbar" style="width: 25%;"
-                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                <div>
+                    <%--输入框--%>
+                    <div class="progress" style="height: 1px;">
+                        <div class="progress-bar progress-bar-animated" role="progressbar" style="width: 25%;"
+                             aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+
+                    <textarea type="text" id="MessContent" class="form-control" rows="2"
+                              name="MessContentInput"></textarea>
+                    <%--提交按钮--%>
+                    <button id="sendMsg" type="submit" class="btn btn-primary" name="btn_sendMsg"
+                            onclick="sendMessage()">发送
+                    </button>
+                    <button id="clearMsg" class="btn btn-primary" onclick="clearMsg()" disabled>清空</button>
                 </div>
-
-                <textarea id="MessContent" class="form-control" rows="2"></textarea>
-                <%--提交按钮--%>
-
-                <button id="sendMsg" class="btn btn-primary" onclick="sendMessage()">发送</button>
-                <button id="clearMsg" class="btn btn-primary" onclick="clearMsg()" disabled>清空</button>
-            </div>
+            </form>
         </div>
 
         <%--成员列表--%>

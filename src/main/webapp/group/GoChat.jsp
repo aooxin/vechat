@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: auswitz
-  Date: 2021/11/19
-  Time: 下午7:05
+  Date: 2021/12/29
+  Time: 下午11:31
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,11 +13,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">  <!--窗口宽度是设备宽度，缩放比例是1:1-->
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>Home</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
-    <script src="js/jquery-3.6.0.js"></script>
+    <script src="../js/jquery-3.6.0.js"></script>
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     <script src="https://cdn.goeasy.io/goeasy-2.2.2.min.js"></script>
     <script type="text/javascript">
         var goeasy = GoEasy.getInstance({
@@ -41,23 +41,14 @@
         });
 
         <%
-        Cookie[] oldCookies=request.getCookies();
-        String username="";
-        String password="";
-        if (oldCookies != null && oldCookies.length > 0) {
-        for (Cookie c : oldCookies) {
-            if (c.getName().equalsIgnoreCase("username")) {
-                username = c.getValue();
-            }
-            if (c.getName().equalsIgnoreCase("password")) {
-                password = c.getValue();
-            }
-        }
-    }
+
+        String username=(String) session.getAttribute("normalUsername");
+        String Group=(String)request.getParameter("goID");
+
         %>
         var pubsub = goeasy.pubsub;
         pubsub.subscribe({
-            channel: "456",//替换为您自己的channel
+            channel: <%=Group%>,//替换为您自己的channel
             onMessage: function (message) {
                 console.log("Channel:" + message.channel + " content:" + message.content);
                 let chatMessage = JSON.parse(message.content);
@@ -80,7 +71,7 @@
                 senderUserId: "<%=username%>"
             };
             pubsub.publish({
-                channel: "456",//替换为您自己的channel
+                channel: <%=Group%>,//替换为您自己的channel
                 message: JSON.stringify(message),//替换为您想要发送的消息内容
                 onSuccess: function () {
                     console.log("消息发布成功。");
@@ -146,7 +137,7 @@
 
 <div class="container">
     <%--消息展示框--%>
-    <div><h3>以下消息是<%=username%>发给群聊1的</h3></div>
+    <div><h3>以下消息是<%=username%>发给<%=Group%>的</h3></div>
     <%--消息展示框--%>
     <textarea id="MessShowContent" class="form-control" rows="6" readonly></textarea>
     <div>

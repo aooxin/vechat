@@ -5,7 +5,6 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Insert title here</title>
 </head>
 <body>
 <jsp:useBean id="db" class="com.example.webdemo.DbBean" scope="page"/>
@@ -14,9 +13,11 @@
 <%--<%@ page import="com.example.webdemo.DbBean" %>--%>
 <jsp:useBean id="md5" class="com.example.webdemo.MD5" scope="page"/>
 <%
+    session.removeAttribute("normalUsername");
     request.setCharacterEncoding("UTF-8");
     String username = (String) request.getParameter("username");
     String password = (String) request.getParameter("password");//取出login.jsp的值
+    session.setAttribute("normalUsername",username);//存储名字
     String[] remember = request.getParameterValues("remember");//是否使用cookies
     Cookie[] oldCookies = request.getCookies();
     if (oldCookies != null && oldCookies.length > 0) {
@@ -29,6 +30,7 @@
             }
         }
     }
+    //去除cookie的影响
     String passCookie =password;
     password = md5.getMD5(password, password.length());
     //下面是数据库操作 *代表所有值
@@ -40,12 +42,12 @@
             if (remember != null && remember.length > 0) {
                 Cookie usernameCookie = new Cookie("username", username);
                 Cookie passwordCookie = new Cookie("password", passCookie);
-//                usernameCookie.setMaxAge(0);
-//                passwordCookie.setMaxAge(0);
+                usernameCookie.setMaxAge(0);
+                passwordCookie.setMaxAge(0);
                 response.addCookie(usernameCookie);
                 response.addCookie(passwordCookie);
             }
-            response.sendRedirect("contacts.jsp");
+            response.sendRedirect("group/groupSelect.jsp");
         } else {
             response.sendRedirect("login.jsp");
         }

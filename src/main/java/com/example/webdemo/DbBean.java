@@ -66,6 +66,7 @@ public class DbBean {
     public void execQuery(String s) {
         try {
             stmt.executeUpdate(s);
+            System.out.println("插入成功！");
         } catch (SQLException e) {
             System.out.println("执行插入错误！");
         }
