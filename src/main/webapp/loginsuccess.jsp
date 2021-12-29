@@ -39,8 +39,6 @@
 
 <%
     request.setCharacterEncoding("UTF-8");
-    String username = (String) request.getParameter("username");
-    String password = (String) request.getParameter("password");//取出login.jsp的值
     //下面是数据库操作 *代表所有值
     String sql = "select * from wechat_user";//定义一个查询语句
     ResultSet rs = db.executeQuery(sql);//运行上面的语句
@@ -65,5 +63,8 @@
     }
 %>
 </tbody>
+<button onclick="window.location.href='admin/Admin.jsp'">
+    Back
+</button>
 </body>
 </html>
