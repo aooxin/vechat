@@ -105,27 +105,6 @@
             let mess = message.senderUserId + ": " + message.content;
             document.getElementById("MessShowContent").append(mess);
             document.getElementById("MessShowContent").append("\n");
-            // 将消息存入数据库部分,这部分太离谱了。。。。留着不删了，以后看到可以想起这个愚蠢的bug
-            <%--引入数据库bean--%>
-            <%--            <%--%>
-            <%--            //获取 QAQ觉得这个写法好愚蠢，但是没有想到什么其他写法2021.12.23 23：15--%>
-            <%--            String senderUserId=new String();--%>
-            <%--            String sendToGroup=new String();--%>
-            <%--            %>--%>
-            <%--            <%=senderUserId%> = message.senderUserId--%>
-            <%--                <%=sendToGroup%> = message.sendToGroup--%>
-            <%--            <jsp:useBean id="db" class="com.example.webdemo.DbBean" scope="page"/>--%>
-            <%--            <%--%>
-            <%--            Date date = new Date();--%>
-            <%--            Timestamp time = new Timestamp(date.getTime());--%>
-            <%--            String sql = "insert into group_message (ID,G_ID,message_content,mess_time) values (" + senderUserId + "," + sendToGroup + "," + '"' + "helloWorld" + '"' + "," + '"' + time + '"' + ")";--%>
-            <%--            String sql_add = "update wechat_group set mess_num=mess_num+1 where group_id="+sendToGroup;--%>
-            <%--            db.execQuery(sql);//运行上面的语句--%>
-            <%--            db.execQuery(sql_add);--%>
-            <%--            %>--%>
-            //把信息传给后端页面
-            <%--let date = <%=username%>;--%>
-            <%--$.ajax({url: "actionDic/Group_Contacts_Action.jsp", type: "post", data: ""});--%>
         }
 
         function clearMsg() {

@@ -149,6 +149,7 @@
     </style>
 </head>
 <body>
+
 <center>
     <div id="content">
         <h1 style="color:red">登录</h1>
@@ -172,7 +173,9 @@
             <div class="logon-box">
                 <a href="forget.jsp">Forgot?</a>
                 <a href="Register.jsp">Register</a>
+                <br>
                 <a href="DeleteUser.jsp">Logout</a>
+                <a href="admin/AdminLogin.jsp.jsp">Admin</a>
             </div>
             <br>
         </form>

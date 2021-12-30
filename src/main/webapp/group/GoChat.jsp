@@ -19,6 +19,7 @@
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="../js/bootstrap.min.js"></script>
     <script src="https://cdn.goeasy.io/goeasy-2.2.2.min.js"></script>
+<%--    <script type="text/javascript" src="../js/conn.js"></script>--%>
     <script type="text/javascript">
         var goeasy = GoEasy.getInstance({
             host: "hangzhou.goeasy.io",  //若是新加坡区域：singapore.goeasy.io
@@ -39,14 +40,12 @@
                 console.log("GoEasy is connecting", attempts);
             }
         });
-
         <%
-
         String username=(String) session.getAttribute("normalUsername");
-        String Group=(String)request.getParameter("goID");
-
+        String Group=(String) request.getParameter("goID");
+        session.setAttribute("goID",Group);
         %>
-        var pubsub = goeasy.pubsub;
+        let pubsub = goeasy.pubsub;
         pubsub.subscribe({
             channel: <%=Group%>,//替换为您自己的channel
             onMessage: function (message) {
@@ -116,20 +115,20 @@
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="#">用户信息</a>
+                        <a class="nav-link " href="userInfo.jsp">用户信息</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="#">联系人</a>
+                        <a class="nav-link " href="groupMember.jsp">群成员</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="#">群</a>
+                        <a class="nav-link " href="groupSelect.jsp">群</a>
                     </li>
                 </ul>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <button type="button" class="btn btn-link" disabled>重新登录</button>
+                <button type="button" class="btn btn-link" onclick="window.location.href='../index.jsp'">重新登录</button>
             </div>
         </div>
     </nav>

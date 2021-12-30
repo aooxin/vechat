@@ -17,7 +17,7 @@
     request.setCharacterEncoding("UTF-8");
     String username = (String) request.getParameter("username");
     String password = (String) request.getParameter("password");//取出login.jsp的值
-    session.setAttribute("normalUsername",username);//存储名字
+    session.setAttribute("normalUsername", username);//存储名字
     String[] remember = request.getParameterValues("remember");//是否使用cookies
     Cookie[] oldCookies = request.getCookies();
     if (oldCookies != null && oldCookies.length > 0) {
@@ -31,7 +31,7 @@
         }
     }
     //去除cookie的影响
-    String passCookie =password;
+    String passCookie = password;
     password = md5.getMD5(password, password.length());
     //下面是数据库操作 *代表所有值
     String sql = "select * from wechat_user where ID=" + "'" + username + "'";//定义一个查询语句
