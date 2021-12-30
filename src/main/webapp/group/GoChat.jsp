@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.example.webdemo.DbBean" %><%--
   Created by IntelliJ IDEA.
   User: auswitz
   Date: 2021/12/29
@@ -19,7 +19,7 @@
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="../js/bootstrap.min.js"></script>
     <script src="https://cdn.goeasy.io/goeasy-2.2.2.min.js"></script>
-<%--    <script type="text/javascript" src="../js/conn.js"></script>--%>
+    <%--    <script type="text/javascript" src="../js/conn.js"></script>--%>
     <script type="text/javascript">
         var goeasy = GoEasy.getInstance({
             host: "hangzhou.goeasy.io",  //若是新加坡区域：singapore.goeasy.io
@@ -42,8 +42,7 @@
         });
         <%
         String username=(String) session.getAttribute("normalUsername");
-        String Group=(String) request.getParameter("goID");
-        session.setAttribute("goID",Group);
+        String Group=(String) session.getAttribute("goID");
         %>
         let pubsub = goeasy.pubsub;
         pubsub.subscribe({
@@ -84,19 +83,24 @@
 
         // 展示收到的消息
         function showMess(msg) {
-            var message = JSON.parse(JSON.stringify(msg));
-            var mess = message.senderUserId + ": " + message.content;
+            let message = JSON.parse(JSON.stringify(msg));
+            let mess = message.senderUserId + ": " + message.content;
+            //let MsgBefore =<%=(String)session.getAttribute("BeforeShowContent")%>;
+            // if (MsgBefore != null) {
+            //     document.getElementById("MessShowContent").append(MsgBefore);
+            // }
             document.getElementById("MessShowContent").append(mess);
             document.getElementById("MessShowContent").append("\n");
+
         };
 
         function clearMsg() {
-            $("#MessShowContent").val("");
+            window.location.href = "GoChat.jsp";
         };
 
-        function reLogin() {
+        //Todo:下面是尝试使用jsp的数据库操作
 
-        };
+
     </script>
 </head>
 <body>
@@ -138,16 +142,24 @@
     <%--消息展示框--%>
     <div><h3>以下消息是<%=username%>发给<%=Group%>的</h3></div>
     <%--消息展示框--%>
-    <textarea id="MessShowContent" class="form-control" rows="6" readonly></textarea>
+    <textarea id="MessShowContent" class="form-control" rows="6" readonly name="MessShow_Content"></textarea>
     <div>
         <%--输入框--%>
-        <textarea id="MessContent" class="form-control" rows="2"></textarea>
+        <textarea id="MessContent" class="form-control" rows="2" name="Mess_Content" placeholder="InPut"></textarea>
         <%--提交按钮--%>
-        <button id="sendMsg" class="btn btn-primary" onclick="sendMessage()">发送</button>
-        <button id="clearMsg" class="btn btn-primary" onclick="clearMsg()" disabled>清空</button>
+        <button type="submit" id="sendMsg" class="btn btn-primary" onclick="sendMessage()">发送</button>
+        <button id="clearMsg" class="btn btn-primary" onclick="clearMsg()">清空</button>
     </div>
-
 </div>
+<%--<div class="container" name="Msg2">--%>
+<%--    <div><h3>以下消息是<%=username%>发给<%=Group%>的</h3></div>--%>
+<%--    &lt;%&ndash;消息展示框&ndash;%&gt;--%>
+<%--    <textarea id="MessShowContent" class="form-control" rows="6" readonly name="MessShow_Content"></textarea>--%>
+<%--    <form action="chatAction.jsp" name="chat2">--%>
+<%--        <input name="chatInput" placeholder="Msg Input"/>--%>
+<%--        <button type="submit" name="btn_chat2"></button>--%>
+<%--    </form>--%>
+<%--</div>--%>
 </body>
 </html>
 </html>

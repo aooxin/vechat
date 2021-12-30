@@ -89,7 +89,7 @@
 
     </div>
     <div class="col-4">
-        <form class="row g-3" action="GoChat.jsp">
+        <form class="row g-3" action="tranfer.jsp">
             <div class="col-auto">
                 <input class="form-control me-1" name="goID" placeholder="ID">
                 <button class="btn btn-outline-success" type="submit">Go!!!</button>
