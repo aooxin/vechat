@@ -43,6 +43,7 @@
         <%
         String username=(String) session.getAttribute("normalUsername");
         String Group=(String) session.getAttribute("goID");
+        String NewContent=(String) session.getAttribute("showContent2");
         %>
         let pubsub = goeasy.pubsub;
         pubsub.subscribe({
@@ -85,7 +86,7 @@
         function showMess(msg) {
             let message = JSON.parse(JSON.stringify(msg));
             let mess = message.senderUserId + ": " + message.content;
-            //let MsgBefore =<%=(String)session.getAttribute("BeforeShowContent")%>;
+
             // if (MsgBefore != null) {
             //     document.getElementById("MessShowContent").append(MsgBefore);
             // }
@@ -98,7 +99,7 @@
             window.location.href = "GoChat.jsp";
         };
 
-        //Todo:下面是尝试使用jsp的数据库操作
+        //Todo:下面是尝试使用数据库操作
 
 
     </script>
@@ -142,24 +143,21 @@
     <%--消息展示框--%>
     <div><h3>以下消息是<%=username%>发给<%=Group%>的</h3></div>
     <%--消息展示框--%>
-    <textarea id="MessShowContent" class="form-control" rows="6" readonly name="MessShow_Content"></textarea>
+    <form action="pushToMySQL.jsp" method="post">
+        <button type="submit">PUSH</button>
+        <textarea id="MessShowContent" class="form-control" rows="6" readonly name="MessShow_Content"></textarea>
+    </form>
     <div>
         <%--输入框--%>
         <textarea id="MessContent" class="form-control" rows="2" name="Mess_Content" placeholder="InPut"></textarea>
         <%--提交按钮--%>
-        <button type="submit" id="sendMsg" class="btn btn-primary" onclick="sendMessage()">发送</button>
+        <button type="button" id="sendMsg" class="btn btn-primary" onclick="sendMessage()">发送</button>
         <button id="clearMsg" class="btn btn-primary" onclick="clearMsg()">清空</button>
+        <%--        <button type="submit" id="clearMsg" class="btn btn-primary">清空</button>--%>
     </div>
 </div>
-<%--<div class="container" name="Msg2">--%>
-<%--    <div><h3>以下消息是<%=username%>发给<%=Group%>的</h3></div>--%>
-<%--    &lt;%&ndash;消息展示框&ndash;%&gt;--%>
-<%--    <textarea id="MessShowContent" class="form-control" rows="6" readonly name="MessShow_Content"></textarea>--%>
-<%--    <form action="chatAction.jsp" name="chat2">--%>
-<%--        <input name="chatInput" placeholder="Msg Input"/>--%>
-<%--        <button type="submit" name="btn_chat2"></button>--%>
-<%--    </form>--%>
-<%--</div>--%>
+
+
 </body>
 </html>
 </html>

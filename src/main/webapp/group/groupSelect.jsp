@@ -15,6 +15,10 @@
 <html>
 <head>
     <title>GroupSelect</title>
+    <style>
+
+    </style>
+
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
     <script src="../js/jquery-3.6.0.js"></script>
@@ -22,81 +26,104 @@
     <script src="../js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="col">
-    <div class="col-3 shadow-sm">
-        <table class="table table-success table-striped">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Group ID</th>
-                <th scope="col">is g master?</th>
-            </tr>
-            </thead>
-            <jsp:useBean id="db" class="com.example.webdemo.DbBean" scope="page"/>
-            <%--<%@ page language="java" contentType="text/html; charset=utf-8"--%>
-            <%--         pageEncoding="utf-8"%>--%>
-            <%--<%@ page import="com.example.webdemo.DbBean" %>--%>
-            <%
-                request.setCharacterEncoding("UTF-8");
-                String username = (String) session.getAttribute("normalUsername");
-                //TODO:这里的判断暂时还有问题媒介决,和之前哪个页面一样
-                if (("".equals(username))) response.sendRedirect("AdminLogin.jsp");
-                //下面是数据库操作 *代表所有值
+<div class="container">
+    <div class="row">
+        <div class="col-3">
 
-                //设置主键自增语句
-                //Alter table group_user_relationship change g_u_ID g_u_ID int auto_increment;
-                //alter table group_user_relationship auto_increment=100000;
-
-                //插入群与成员关系语句
-                //insert group_user_relationship(group_ID,ID,is_group_master)  values(1000,10000,1);
-                //insert group_user_relationship(group_ID,ID,is_group_master)  values(1001,10000,0);
-
-                String sql = "select * from group_user_relationship where ID=" + "'" + username + "'";//定义一个查询语句
-                //String sql = "select * from group_user_relationship";
-                ResultSet rs = db.executeQuery(sql);//运行上面的语句
-                List<UserInGroup> list = new ArrayList<UserInGroup>();
-                while (rs.next()) {
-                    try {
-                        String use_name = rs.getString("ID");
-                        String group_name = rs.getString("group_ID");
-                        boolean is_group_master = rs.getBoolean("is_group_master");
-                        UserInGroup usr = new UserInGroup(use_name, group_name, is_group_master);
-                        list.add(usr);
-                    } catch (Exception e) {
-                        continue;
-                    }
-                }
-                int x = 1;
-                for (UserInGroup tl : list) {%>
-            <tbody>
-            <tr>
-                <th scope="row">
-                    <%=x++%>
-                </th>
-                <th>
-                    <%=tl.getGroup_name() %>
-                </th>
-                <th>
-                    <%=tl.getIs_group_master() %>
-                </th>
-            </tr>
-            <br>
-            <%
-                }
-            %>
-            </tbody>
-        </table>
+        </div>
+        <div class="col-5" style="margin-top: 100px">
+            <p>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    本页说明
+                </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    在这里可以看到已经加入的群聊,可以在输入框里输入想要聊天的群聊进行下一步聊天操作
+                </div>
+            </div>
+        </div>
 
     </div>
-    <div class="col-4">
-        <form class="row g-3" action="tranfer.jsp">
-            <div class="col-auto">
-                <input class="form-control me-1" name="goID" placeholder="ID">
-                <button class="btn btn-outline-success" type="submit">Go!!!</button>
-            </div>
-        </form>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4 shadow-sm">
+            <table class="table table-success table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Group ID</th>
+                    <th scope="col">is g master?</th>
+                </tr>
+                </thead>
+                <jsp:useBean id="db" class="com.example.webdemo.DbBean" scope="page"/>
+                <%--<%@ page language="java" contentType="text/html; charset=utf-8"--%>
+                <%--         pageEncoding="utf-8"%>--%>
+                <%--<%@ page import="com.example.webdemo.DbBean" %>--%>
+                <%
+                    request.setCharacterEncoding("UTF-8");
+                    String username = (String) session.getAttribute("normalUsername");
+                    //TODO:这里的判断暂时还有问题媒介决,和之前哪个页面一样
+                    if (("".equals(username))) response.sendRedirect("AdminLogin.jsp");
+                    //下面是数据库操作 *代表所有值
+
+                    //设置主键自增语句
+                    //Alter table group_user_relationship change g_u_ID g_u_ID int auto_increment;
+                    //alter table group_user_relationship auto_increment=100000;
+
+                    //插入群与成员关系语句
+                    //insert group_user_relationship(group_ID,ID,is_group_master)  values(1000,10000,1);
+                    //insert group_user_relationship(group_ID,ID,is_group_master)  values(1001,10000,0);
+
+                    String sql = "select * from group_user_relationship where ID=" + "'" + username + "'";//定义一个查询语句
+                    //String sql = "select * from group_user_relationship";
+                    ResultSet rs = db.executeQuery(sql);//运行上面的语句
+                    List<UserInGroup> list = new ArrayList<UserInGroup>();
+                    while (rs.next()) {
+                        try {
+                            String use_name = rs.getString("ID");
+                            String group_name = rs.getString("group_ID");
+                            boolean is_group_master = rs.getBoolean("is_group_master");
+                            UserInGroup usr = new UserInGroup(use_name, group_name, is_group_master);
+                            list.add(usr);
+                        } catch (Exception e) {
+                            continue;
+                        }
+                    }
+                    int x = 1;
+                    for (UserInGroup tl : list) {%>
+                <tbody>
+                <tr>
+                    <th scope="row">
+                        <%=x++%>
+                    </th>
+                    <th>
+                        <%=tl.getGroup_name() %>
+                    </th>
+                    <th>
+                        <%=tl.getIs_group_master() %>
+                    </th>
+                </tr>
+                <br>
+                <%
+                    }
+                %>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="col-4">
+            <form class="row g-3" action="tranfer.jsp">
+                <div class="col-auto">
+                    <input class="form-control me-1" name="goID" placeholder="ID">
+                    <button class="btn btn-outline-success" type="submit">Go!!!</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
 
 </body>
 </html>

@@ -18,11 +18,12 @@
 </head>
 <body>
 <jsp:useBean id="db" class="com.example.webdemo.DbBean" scope="page"/>
-<jsp:useBean id="md5" class="com.example.webdemo.MD5" scope="page"/>
 <%
-    //session.removeAttribute("showContent");
+    session.removeAttribute("showContent");
     request.setCharacterEncoding("UTF-8");
-    String MsgContent = (String) request.getParameter("Mess_Content");//找到输入的消息
+    String MsgContent = (String) request.getParameter("chatInput");//找到输入的消息
+    session.setAttribute("showContent2", MsgContent);//将输入的消息暂时存入session
+
     String user = (String) session.getAttribute("normalUsername");
     String group = (String) session.getAttribute("goID");
     Date date = new Date();//加时间
