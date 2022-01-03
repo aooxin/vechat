@@ -36,7 +36,6 @@
     String showContent = (String) request.getParameter("MessShow_Content");
     session.setAttribute("BeforeShowContent", showContent);
     response.sendRedirect("GoChat.jsp");
-    //request.getRequestDispatcher("../Group_Contacts.jsp");
 %>
 </body>
 </html>

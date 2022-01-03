@@ -21,17 +21,6 @@
     </thead>
 </table>
 <tbody>
-<!--这里开始循环输出list对象中的信息-->
-<%--<:forEach items="${list}" var="clas">
-    <tr>
-        <th scope="row"><%=++i %></th>
-        <td><a  href='classinforlet?hao=${clas.hao} ' >${clas.name}</a>
-        <td>${clas.hao}</td>
-        <td>${clas.tname}</td>
-        <td>${clas.person}</td>
-        <td>${clas.chose}</td>
-    </tr>
-</:forEach>--%>
 <jsp:useBean id="db" class="com.example.webdemo.DbBean" scope="page"/>
 <%--<%@ page language="java" contentType="text/html; charset=utf-8"--%>
 <%--         pageEncoding="utf-8"%>--%>

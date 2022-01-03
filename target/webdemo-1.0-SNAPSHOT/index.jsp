@@ -175,7 +175,7 @@
                 <a href="Register.jsp">Register</a>
                 <br>
                 <a href="DeleteUser.jsp">Logout</a>
-                <a href="admin/AdminLogin.jsp.jsp">Admin</a>
+                <a href="admin/AdminLogin.jsp">Admin</a>
             </div>
             <br>
         </form>
