@@ -3,8 +3,9 @@
 
 数据库原理课的作业，所以前端基本--稀碎--
 
-项目介绍：http://www.auswitz.top/2022/01/26/mysqlAssignment/
-项目文档：http://www.auswitz.top/2022/01/26/mysqlAssignment/
+[项目介绍](http://www.auswitz.top/2022/01/26/mysqlAssignment/)
+
+[项目文档](http://www.auswitz.top/2022/01/26/mysqlAssignment/)
 
 主要还是数据库部分：表结构、视图、索引、存储过程、触发器、并发事务设计。
 ## 系统主要功能：
@@ -19,10 +20,10 @@
 ### 前端
 WebSocket
 
-bootStrap
+[bootStrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
 
-jQuery
+[jQuery](https://jquery.com/)
 ### 后端
 MySQL
 ### 外部接口
-Goeasy
+[Goeasy](https://www.goeasy.io/)
